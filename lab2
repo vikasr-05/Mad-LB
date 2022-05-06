@@ -1,0 +1,182 @@
+package com.example.lab2;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import java.util.regex.Pattern;
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    Button btnOne,btnTwo,btnThree,btnFour,btnFive,btnSix,btnSeven,btnEight,btnNine,btnZero;
+    Button btnAdd,btnSub,btnMul,btnDiv;
+    Button btnEqual,btnDot,btnClear;
+    EditText txtResults;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        btnZero=(Button)findViewById(R.id.btnZero);
+        btnZero.setOnClickListener(this);
+        btnOne=(Button)findViewById(R.id.btnOne);
+        btnOne.setOnClickListener(this);
+        btnTwo=(Button)findViewById(R.id.btnTwo);
+        btnTwo.setOnClickListener(this);
+        btnThree=(Button) findViewById(R.id.btnThree);
+        btnFour=(Button) findViewById(R.id.btnFour);
+        btnFive=(Button) findViewById(R.id.btnFive);
+        btnSix=(Button) findViewById(R.id.btnSix);
+        btnSeven=(Button) findViewById(R.id.btnSeven);
+        btnEight=(Button) findViewById(R.id.btnEight);
+        btnNine=(Button) findViewById(R.id.btnNine);
+        btnAdd=(Button) findViewById(R.id.btnAdd);
+        btnSub=(Button)findViewById(R.id.btnSub);
+        btnMul=(Button) findViewById(R.id.btnMul);
+        btnDiv=(Button) findViewById(R.id.btnDiv);
+        btnDot=(Button) findViewById(R.id.btnDot);
+        btnEqual=(Button) findViewById(R.id.btnEqual);
+        btnClear=(Button) findViewById(R.id.btnClear);
+        btnThree.setOnClickListener(this);
+        btnFour.setOnClickListener(this);
+        btnFive.setOnClickListener(this);
+        btnSix.setOnClickListener(this);
+        btnSeven.setOnClickListener(this);
+        btnEight.setOnClickListener(this);
+        btnNine.setOnClickListener(this);
+        btnAdd.setOnClickListener(this);
+        btnSub.setOnClickListener(this);
+        btnMul.setOnClickListener(this);
+        btnDiv.setOnClickListener(this);
+        btnDot.setOnClickListener(this);
+        btnClear.setOnClickListener(this);
+        btnEqual.setOnClickListener(this);
+        txtResults=(EditText) findViewById(R.id.Edit_txt);
+        txtResults.setText("");
+
+
+
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.equals(btnOne))
+            txtResults.append("1");
+        if (v.equals(btnTwo))
+            txtResults.append("2");
+        if (v.equals(btnThree))
+            txtResults.append("3");
+        if (v.equals(btnFour))
+            txtResults.append("4");
+        if (v.equals(btnFive))
+            txtResults.append("5");
+        if (v.equals(btnSix))
+            txtResults.append("6");
+        if (v.equals(btnSeven))
+            txtResults.append("7");
+        if (v.equals(btnEight))
+            txtResults.append("8");
+        if (v.equals(btnNine))
+            txtResults.append("9");
+        if (v.equals(btnZero))
+            txtResults.append("0");
+        if (v.equals(btnClear))
+            txtResults.append("empty");
+        if (v.equals(btnEqual))
+        {
+            try {
+                String data = txtResults.getText().toString();
+                if (data.contains("/")) {
+                    divide(data);
+                } else if (data.contains("*")) {
+                    mul(data);
+                } else if (data.contains("-")) {
+                    sub(data);
+                } else if (data.contains("+")){
+                    add(data);
+                }
+            }
+                catch (Exception e)
+                        {
+                            dispalyInvalidMessege("invalid input");
+
+                        }
+
+
+            }
+        }
+
+    private void dispalyInvalidMessege(String invalid_input) {
+        Toast.makeText(getApplicationContext(),invalid_input, Toast.LENGTH_SHORT).show();
+    }
+
+    private void add(String data) {
+        String[] operands = data.split(Pattern.quote("+"));
+        if (operands.length == 2) {
+            double operand1 = Double.parseDouble(operands[0]);
+            double operand2 = Double.parseDouble(operands[1]);
+            double Result = operand1 - operand2;
+            txtResults.setText(String.valueOf(Result));
+        } else {
+            displayInvalidMessage("inavlid input");
+        }
+    }
+
+    private void sub(String data) {
+        String[] operand=data.split("-");
+            if(operand.length==2)
+            {
+                double operand1=Double.parseDouble(operand[0]);
+                double operand2=Double.parseDouble(operand[1]);
+                double Result=operand1+operand2;
+                txtResults.setText(String.valueOf(Result));
+            }
+            else
+            {
+                displayInvalidMessage("inavlid input");
+            }
+    }
+
+    private void mul(String data) {
+        String[] operand=data.split(Pattern.quote("*"));
+            if(operand.length==2)
+            {
+                double operand1=Double.parseDouble(operand[0]);
+                double operand2=Double.parseDouble(operand[1]);
+                double Result=operand1*operand2;
+                txtResults.setText(String.valueOf(Result));
+            }
+            else
+            {
+                displayInvalidMessage("inavlid input");
+            }
+
+
+    }
+
+    private void divide(String data) {
+        String[] operand=data.split(Pattern.quote("/"));
+            if(operand.length==2)
+            {
+                double operand1=Double.parseDouble(operand[0]);
+                double operand2=Double.parseDouble(operand[1]);
+                double Result=operand1/operand2;
+                txtResults.setText(String.valueOf(Result));
+            }
+            else
+            {
+                displayInvalidMessage("inavlid input");
+            }
+    }
+
+
+
+
+    private void displayInvalidMessage(String inavlid_input) {
+        Toast.makeText(getApplicationContext(),inavlid_input, Toast.LENGTH_SHORT).show();
+    }
+}
