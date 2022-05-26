@@ -1,4 +1,4 @@
-package com.example.prgm3_4mt20cs401;
+package com.example.signup;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
