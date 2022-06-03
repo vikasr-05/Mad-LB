@@ -1,59 +1,46 @@
-package com.example.signin;
+package com.example.signup;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class login extends AppCompatActivity {
-    EditText username,password;
-    Button signinBtn;
-    private int count = 0;
+import java.security.Key;
+
+public class Signin extends AppCompatActivity {
+    EditText UserName,password;
+    Button Signin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_signin);
 
-        Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
-        String uname=  bundle.getString("username");
-        String pass =  bundle.getString("password");
+        UserName=(EditText)findViewById(R.id.UserName);
+        password=(EditText) findViewById(R.id.password);
+        Signin=(Button) findViewById(R.id.Signin);
 
+        Bundle bundle=getIntent().getExtras();
 
-        username = findViewById(R.id.username);
-        password = findViewById(R.id.password);
-        signinBtn = findViewById(R.id.signinbtn);
-
-        signinBtn.setOnClickListener(new View.OnClickListener() {
+        String usnme=bundle.getString("Username");
+        String pwd=bundle.getString("password");
+        Signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(count<2) {
-                    String signinuname = username.getText().toString();
-                    String signinpass = password.getText().toString();
-
-                    if (uname.equals(signinuname) && pass.equals(signinpass)){
-                        Toast.makeText(getApplicationContext(),"Login Successfull",Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(login.this, loginSuccessful.class);
-                        startActivity(intent);
-
-                    } else {
-                        Toast.makeText(getApplicationContext(),"Login Failed",Toast.LENGTH_LONG).show();
-                        count++;
-                    }
-
-                } else {
-                    Toast.makeText(getApplicationContext(),"Too Many Attempts",Toast.LENGTH_SHORT).show();
-                    signinBtn.setEnabled(false);
+                String User=UserName.getText().toString();
+                String pass=password.getText().toString();
+                if(User.equals(usnme)&&pass.equals(pwd))
+                {
+                    Toast.makeText(Signin.this, "success", Toast.LENGTH_SHORT).show();
                 }
-
-
+                else
+                {
+                    Toast.makeText(Signin.this, "failed", Toast.LENGTH_SHORT).show();
+                }
             }
         });
-
     }
 }
